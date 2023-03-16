@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/plogin"
+    android:clipToPadding="false"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="150dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="39dp"
+        android:layout_marginBottom="23dp"
+        android:contentDescription="@string/logo"
+        app:layout_constraintBottom_toTopOf="@+id/nom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
+
+    <EditText
+        android:id="@+id/nom"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginTop="212dp"
+        android:autofillHints="@string/nom"
+        android:background="@drawable/radius_shape"
+        android:elevation="30dp"
+        android:ems="10"
+        android:hint="@string/nom"
+        android:inputType="textPersonName"
+        android:padding="10dp"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/num"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginTop="79dp"
+        android:layout_marginBottom="81dp"
+        android:autofillHints="@string/num"
+        android:background="@drawable/radius_shape"
+        android:elevation="30dp"
+        android:ems="10"
+        android:hint="@string/num"
+        android:inputType="textPassword"
+        android:padding="10dp"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@+id/login"
+        app:layout_constraintStart_toStartOf="@+id/nom"
+        app:layout_constraintTop_toTopOf="@+id/nom" />
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/radius_shape"
+        android:elevation="30dp"
+        android:text="@string/login"
+        app:layout_constraintBaseline_toBaselineOf="@+id/signup"
+        app:layout_constraintStart_toStartOf="@+id/num" />
+
+    <Button
+        android:id="@+id/signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="112dp"
+        android:background="@drawable/radius_shape"
+        android:elevation="30dp"
+        android:text="@string/signup"
+        app:layout_constraintEnd_toEndOf="@+id/num"
+        app:layout_constraintTop_toBottomOf="@+id/nom" />
+
+    <android.support.constraint.Constraints
+        android:id="@+id/constraints"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.constraint.Constraints
+        android:id="@+id/constraints2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
