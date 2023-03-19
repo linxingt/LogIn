@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout"
@@ -14,10 +13,10 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="150dp"
+        android:layout_width="120dp"
         android:layout_height="0dp"
-        android:layout_marginTop="39dp"
-        android:layout_marginBottom="23dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="27dp"
         android:contentDescription="@string/logo"
         app:layout_constraintBottom_toTopOf="@+id/nom"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,29 +24,31 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo" />
 
-    <EditText
-        android:id="@+id/nom"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/login"
+        android:layout_width="0dp"
         android:layout_height="48dp"
-        android:layout_marginTop="212dp"
-        android:autofillHints="@string/nom"
+        android:layout_marginStart="99dp"
+        android:layout_marginEnd="27dp"
         android:background="@drawable/radius_shape"
         android:elevation="30dp"
-        android:ems="10"
-        android:hint="@string/nom"
-        android:inputType="textPersonName"
         android:padding="10dp"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="@string/login"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBaseline_toBaselineOf="@+id/signup"
+        app:layout_constraintEnd_toStartOf="@+id/signup"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/num"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="48dp"
-        android:layout_marginTop="79dp"
-        android:layout_marginBottom="81dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="33dp"
         android:autofillHints="@string/num"
         android:background="@drawable/radius_shape"
         android:elevation="30dp"
@@ -56,47 +57,72 @@
         android:inputType="textPassword"
         android:padding="10dp"
         android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="@+id/login"
-        app:layout_constraintStart_toStartOf="@+id/nom"
-        app:layout_constraintTop_toTopOf="@+id/nom" />
-
-    <Button
-        android:id="@+id/login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/radius_shape"
-        android:elevation="30dp"
-        android:text="@string/login"
-        app:layout_constraintBaseline_toBaselineOf="@+id/signup"
-        app:layout_constraintStart_toStartOf="@+id/num" />
+        android:textColor="@color/black"
+        android:textColorHint="@color/gray"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/signup"
+        app:layout_constraintEnd_toStartOf="@+id/button_map"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nom" />
 
     <Button
         android:id="@+id/signup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="112dp"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="97dp"
+        android:layout_marginBottom="360dp"
         android:background="@drawable/radius_shape"
         android:elevation="30dp"
+        android:padding="10dp"
         android:text="@string/signup"
-        app:layout_constraintEnd_toEndOf="@+id/num"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/login"
+        app:layout_constraintTop_toBottomOf="@+id/num" />
+
+    <EditText
+        android:id="@+id/nom"
+        android:layout_width="210dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="31dp"
+        android:autofillHints="@string/nom"
+        android:background="@drawable/radius_shape"
+        android:elevation="30dp"
+        android:ems="10"
+        android:hint="@string/nom"
+        android:inputType="textPersonName"
+        android:padding="10dp"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textColorHint="@color/gray"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/num"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <Button
+        android:id="@+id/button_map"
+        android:layout_width="50dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="37dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/maplogo"
+        app:layout_constraintBottom_toBottomOf="@+id/num"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/num"
         app:layout_constraintTop_toBottomOf="@+id/nom" />
-
-    <android.support.constraint.Constraints
-        android:id="@+id/constraints"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <android.support.constraint.Constraints
-        android:id="@+id/constraints2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

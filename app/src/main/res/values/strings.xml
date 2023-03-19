@@ -3,11 +3,11 @@
     <string name="login">LogIn</string>
     <string name="signup">Sign up</string>
     <string name="logo">logo</string>
-    <string name="nom">nom</string>
-    <string name="prenom">prenom</string>
-    <string name="email">email</string>
-    <string name="num">password</string>
-    <string name="cmdp">password confirmation</string>
+    <string name="nom">Nom</string>
+    <string name="prenom">Prenom</string>
+    <string name="email">Email</string>
+    <string name="num">Mdp</string>
+    <string name="cmdp">Confirmez votre mdp</string>
     <string name="validate">Validate</string>
     <string name="goback">Go back</string>
 

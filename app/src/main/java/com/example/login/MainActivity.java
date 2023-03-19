@@ -4,11 +4,15 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,7 +22,7 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity {
 
     EditText nom,num;
-    Button l,s;
+    Button l,s,m;
     ProgressDialog dialog;
     JSONParser parser= new JSONParser();
     int succes;
@@ -28,13 +32,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //supprime le title bar moche par defaut et statu bar
+        getSupportActionBar().hide();// title bar
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);// statu bar
+
         nom=findViewById(R.id.nom);
         num=findViewById(R.id.num);
+
         l=findViewById(R.id.login);
         l.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                new Log().execute();
+                if(nom.getText().length()==0||num.getText().length()==0){
+                    Toast.makeText(getApplicationContext(),
+                            "tous les champs sont obligatoire",Toast.LENGTH_LONG).show();
+                }else {
+                    new Log().execute();
+                }
             }
         });
         s=findViewById(R.id.signup);
@@ -43,6 +57,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v){
                 Intent intent=new Intent();
                 intent.setClass(getApplicationContext(),Inscription.class);
+                startActivity(intent);
+            }
+        });
+        m=findViewById(R.id.button_map);
+        m.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent=new Intent();
+                intent.setClass(getApplicationContext(),Map.class);
                 startActivity(intent);
             }
         });
@@ -86,6 +109,9 @@ public class MainActivity extends AppCompatActivity {
                 alert.setMessage("login done successfully");
                 alert.setNeutralButton("ok",null);
                 alert.show();
+                Intent intent=new Intent();
+                intent.setClass(getApplicationContext(),Map.class);
+                startActivity(intent);
             }
             else{
                 AlertDialog.Builder alert=new AlertDialog.Builder(MainActivity.this);
