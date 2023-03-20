@@ -1,6 +1,9 @@
 package com.example.login;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -10,9 +13,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+
 public class Inscription extends AppCompatActivity {
     EditText ins_nom,ins_prenom,ins_email,ins_num,ins_numc;
     Button v,b;
+
+    ProgressDialog dialog;
+    JSONParser parser=new JSONParser();
+
+    int succes;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +50,12 @@ public class Inscription extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),
                             "tous les champs sont obligatoire",Toast.LENGTH_LONG).show();
                 }else {
-                    //new Inscription.valide().execute();//pas encore fait
+
+                    if(ins_num.getText().toString().equals(ins_numc.getText().toString()))
+                        new Add().execute();
+                    else
+                        Toast.makeText(getApplicationContext(),
+                                "verifiez votre mdp",Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -51,6 +69,49 @@ public class Inscription extends AppCompatActivity {
             }
         });
 
+    }
+    class Add extends AsyncTask<String,String,String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog=new ProgressDialog(Inscription.this);
+            dialog.setMessage("Patientez svp");
+            dialog.show();
+        }
+        @Override
+        protected String doInBackground(String... strings) {
+            HashMap<String,String> map= new HashMap<>();
+
+            map.put("nom",ins_nom.getText().toString());
+            map.put("prenom",ins_prenom.getText().toString());
+            map.put("email",ins_email.getText().toString());
+            map.put("num",ins_num.getText().toString());
+
+            JSONObject object=parser.makeHttpRequest("http://10.0.2.2/login/add_user.php","GET",map);
+
+            try {
+                succes=object.getInt("succes");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            dialog.cancel();
+
+            if(succes==1){
+                Toast.makeText(Inscription.this,"c fait, allez login",Toast.LENGTH_LONG).show();
+                Intent intent=new Intent();
+                intent.setClass(getApplicationContext(),MainActivity.class);
+                startActivity(intent);
+            }
+            else{
+                Toast.makeText(Inscription.this,"echec!!!!",Toast.LENGTH_LONG).show();
+            }
+        }
     }
 }
 

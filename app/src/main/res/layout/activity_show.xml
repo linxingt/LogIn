@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/usernom"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="585dp"
+        android:background="@color/purple_clair"
+        android:paddingStart="25dp"
+        android:paddingTop="30dp"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/scontacts"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/contacts_show"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="598dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add" />
+
+    <Button
+        android:id="@+id/add"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="57dp"
+        android:background="@drawable/addbtn"
+        app:layout_constraintBottom_toTopOf="@+id/contacts_show"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/barbasbgview"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:background="@color/purple_clair"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/scontacts"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/smap"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="98dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/maplogo"
+        app:layout_constraintBottom_toBottomOf="@+id/scontacts"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/scontacts"
+        app:layout_constraintTop_toTopOf="@+id/scontacts"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/scontacts"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="95dp"
+        android:layout_marginEnd="118dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/friends"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/smap"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/usernom" />
+
+</android.support.constraint.ConstraintLayout>
