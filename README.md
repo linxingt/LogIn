@@ -2,5 +2,8 @@ Login
 
 
 + XAMPP MySQL base de donnees = econtact
-+ "xampp\htdocs\login\login.php"
-+ "xampp\htdocs\login\connectBD.php"
+
+C:\Users\xingt\AndroidStudioProjects\LogIn\app\src\main\xampp_php
+- xampp\htdocs\login\login.php
+- xampp\htdocs\login\connectBD.php
+- xampp\htdocs\login\add_user.php
