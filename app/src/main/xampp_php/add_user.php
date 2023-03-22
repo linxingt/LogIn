@@ -11,7 +11,7 @@ if(isset($_GET["nom"]) && isset($_GET["prenom"]) && isset($_GET["email"]) && iss
     $email=$_GET["email"];
     $num=$_GET["num"];
 
-    $req=mysqli_query($connection,"insert into utilisateur(nom, prenom, num, email) values('$nom','$prenom','$email','$num')");
+    $req=mysqli_query($connection,"insert into utilisateur(nom, prenom, num, email) values('$nom','$prenom','$num','$email')");
     
     if($req){
         $response["succes"]=1;

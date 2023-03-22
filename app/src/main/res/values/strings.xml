@@ -10,5 +10,6 @@
     <string name="cmdp">Confirmez votre mdp</string>
     <string name="validate">Validate</string>
     <string name="goback">Go back</string>
+    <string name="addcontact">Add</string>
 
 </resources>

@@ -28,6 +28,7 @@ import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
 
 public class Map extends AppCompatActivity {
@@ -58,7 +59,7 @@ public class Map extends AppCompatActivity {
             setContentView(R.layout.activity_map);
 
             getSupportActionBar().hide();// title bar
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);// statu bar
+            getWindow().setStatusBarColor(getResources().getColor(R.color.white));//color status bar
 
             try {
                 initmap();
@@ -93,7 +94,7 @@ public class Map extends AppCompatActivity {
         setContentView(R.layout.activity_map);
 
         getSupportActionBar().hide();// title bar
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);// statu bar
+        getWindow().setStatusBarColor(getResources().getColor(R.color.black));//color status bar
 
         try {
             initmap();
