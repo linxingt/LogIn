@@ -9,7 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.ZoomControls;
@@ -22,16 +22,17 @@ import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MapPoi;
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
-import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
 
 public class Map extends AppCompatActivity {
+    Button but_Loc;
     private MapView mMapView = null;
     private BaiduMap mBaiduMap = null;
     private LocationClient mLocationClient = null;
@@ -59,7 +60,7 @@ public class Map extends AppCompatActivity {
             setContentView(R.layout.activity_map);
 
             getSupportActionBar().hide();// title bar
-            getWindow().setStatusBarColor(getResources().getColor(R.color.white));//color status bar
+            getWindow().setStatusBarColor(getResources().getColor(R.color.black));//color status bar
 
             try {
                 initmap();
@@ -122,6 +123,15 @@ public class Map extends AppCompatActivity {
         //获取地图控件引用
         mMapView = (MapView)findViewById(R.id.bmapView);
         mBaiduMap = mMapView.getMap();
+
+        LatLng cenpt = new LatLng(48.865545884093244, 2.34702785023729);  //设定中心点坐标
+        MapStatus mMapStatus = new MapStatus.Builder()//定义地图状态
+                .target(cenpt)
+                .zoom(10)
+                .build();  //定义MapStatusUpdate对象，以便描述地图状态将要发生的变化
+        MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
+        mBaiduMap.setMapStatus(mMapStatusUpdate);//改变地图状态
+
 //开启地图的定位图层
         mBaiduMap.setMyLocationEnabled(true);
 
@@ -178,24 +188,63 @@ public class Map extends AppCompatActivity {
     }
     //构造地图数据
     public class MyLocationListener extends BDAbstractLocationListener {
-        @Override
+         @Override
         public void onReceiveLocation(BDLocation location) {
             //mapView 销毁后不在处理新接收的位置
             if (location == null || mMapView == null){
                 return;
             }
             LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-            MapStatusUpdate update = MapStatusUpdateFactory.newLatLng(latLng);
+//            MapStatusUpdate update = MapStatusUpdateFactory.newLatLng(latLng);
             MyLocationData locData = new MyLocationData.Builder()
                     .accuracy(location.getRadius())
                     // 此处设置开发者获取到的方向信息，顺时针0-360
                     .direction(location.getDirection()).latitude(location.getLatitude())
                     .longitude(location.getLongitude()).build();
-            MyLocationConfiguration configuration = new MyLocationConfiguration(MyLocationConfiguration.LocationMode.FOLLOWING,
+            MyLocationConfiguration configuration = new MyLocationConfiguration(MyLocationConfiguration.LocationMode.NORMAL,
                     true, BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.bleutotoro), 150, 160, true)) );
             mBaiduMap.setMyLocationConfiguration(configuration);
-            mBaiduMap.animateMapStatus(update);
+//            mBaiduMap.animateMapStatus(update);
             mBaiduMap.setMyLocationData(locData);
+
+             but_Loc = findViewById(R.id.but_Loc);
+             but_Loc.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View v) {
+                     MapStatusUpdate update = MapStatusUpdateFactory.newLatLng(latLng);
+                     mBaiduMap.animateMapStatus(update);
+                 }
+             });
+            BaiduMap.OnMapClickListener listener = new BaiduMap.OnMapClickListener() {
+                @Override
+                public void onMapClick(LatLng point) {
+                    LatLng start = new LatLng(location.getLatitude(), location.getLongitude());
+                    LatLng end = new LatLng(point.latitude,point.longitude);
+                    double double_distance = getDistance(start, end);
+                    Toast.makeText(getApplicationContext(), "The distance between you and where you clicked is : " + Math.round(double_distance)+ "km", Toast.LENGTH_SHORT).show();
+                }
+                @Override
+                public void onMapPoiClick(MapPoi mapPoi) {
+
+                }
+            };
+            mBaiduMap.setOnMapClickListener(listener);
+
         }
+    }
+
+    public double getDistance(LatLng start, LatLng end) {
+
+        double lon1 = (Math.PI / 180) * start.longitude;
+        double lon2 = (Math.PI / 180) * end.longitude;
+        double lat1 = (Math.PI / 180) * start.latitude;
+        double lat2 = (Math.PI / 180) * end.latitude;
+
+        double R = 6371;
+
+        double d = Math.acos(Math.sin(lat1) * Math.sin(lat2) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(lon2 - lon1))
+                * R;
+
+        return d;
     }
 }

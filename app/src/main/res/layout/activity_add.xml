@@ -9,14 +9,14 @@
     <EditText
         android:id="@+id/cnom"
         android:layout_width="210dp"
-        android:layout_height="0dp"
+        android:layout_height="48dp"
         android:layout_marginTop="121dp"
         android:layout_marginBottom="19dp"
+        android:autofillHints="@string/nom"
         android:background="@color/white_transp"
         android:elevation="10dp"
         android:ems="10"
         android:hint="@string/nom"
-        android:autofillHints="@string/nom"
         android:inputType="textPersonName"
         android:padding="10dp"
         android:textAlignment="center"
@@ -31,13 +31,13 @@
     <EditText
         android:id="@+id/cemail"
         android:layout_width="210dp"
-        android:layout_height="0dp"
+        android:layout_height="48dp"
         android:layout_marginBottom="36dp"
+        android:autofillHints="@string/email"
         android:background="@color/white_transp"
         android:elevation="10dp"
         android:ems="10"
         android:hint="@string/email"
-        android:autofillHints="@string/email"
         android:inputType="textPersonName|textEmailAddress"
         android:padding="10dp"
         android:textAlignment="center"
@@ -52,13 +52,13 @@
     <EditText
         android:id="@+id/cprenom"
         android:layout_width="210dp"
-        android:layout_height="0dp"
+        android:layout_height="48dp"
         android:layout_marginBottom="21dp"
+        android:autofillHints="@string/prenom"
         android:background="@color/white_transp"
         android:elevation="10dp"
         android:ems="10"
         android:hint="@string/prenom"
-        android:autofillHints="@string/prenom"
         android:inputType="textPersonName"
         android:padding="10dp"
         android:textAlignment="center"
@@ -73,7 +73,7 @@
     <Button
         android:id="@+id/addcontact"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginBottom="342dp"
         android:background="@drawable/radius_shape"
         android:elevation="10dp"
@@ -85,5 +85,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cemail" />
+
+    <Button
+        android:id="@+id/addback"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/backbtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

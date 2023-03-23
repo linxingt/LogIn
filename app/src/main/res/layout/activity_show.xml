@@ -6,10 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".ShowContact">
 
+    <Button
+        android:id="@+id/locamap"
+        android:layout_width="70dp"
+        android:layout_height="0dp"
+        android:background="@drawable/loc"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contacts_show" />
+
     <TextView
         android:id="@+id/usernom"
-        android:layout_width="fill_parent"
-        android:layout_height="80dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@color/purple_clair"
         android:padding="20dp"
         android:textAlignment="center"
@@ -24,48 +34,50 @@
 
     <Button
         android:id="@+id/add"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="83dp"
-        android:layout_marginEnd="122dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/addbtn"
-        app:layout_constraintBottom_toBottomOf="@+id/smap"
-        app:layout_constraintEnd_toStartOf="@+id/smap"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/contacts_show"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/showback"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/barbasbgview"
-        android:layout_width="fill_parent"
-        android:layout_height="80dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@color/purple_clair"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contacts_show"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <Button
-        android:id="@+id/smap"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginEnd="86dp"
-        android:layout_marginBottom="7dp"
-        android:background="@drawable/maplogo"
-        app:layout_constraintBottom_toBottomOf="@+id/add"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/add"
-        app:layout_constraintTop_toTopOf="@+id/add" />
+        app:layout_constraintTop_toBottomOf="@+id/contacts_show" />
 
     <ListView
         android:id="@+id/contacts_show"
-        android:layout_width="fill_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="13dp"
+        android:layout_marginBottom="80dp"
         android:listSelector="@android:color/transparent"
-        app:layout_constraintBottom_toTopOf="@+id/add"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usernom" />
+        app:layout_constraintTop_toBottomOf="@+id/add" />
+
+    <Button
+        android:id="@+id/showback"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="283dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/backbtn"
+        app:layout_constraintBottom_toBottomOf="@+id/usernom"
+        app:layout_constraintEnd_toStartOf="@+id/add"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

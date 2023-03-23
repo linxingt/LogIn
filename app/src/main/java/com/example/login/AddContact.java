@@ -19,7 +19,7 @@ import java.util.HashMap;
 
 public class AddContact extends AppCompatActivity {
     EditText cnom, cprenom, cemail;
-    Button a;
+    Button addback, a;
 
     ProgressDialog dialog;
     JSONParser parser = new JSONParser();
@@ -51,6 +51,17 @@ public class AddContact extends AppCompatActivity {
             alert.show();
         }
 
+        addback = findViewById(R.id.addback);
+        addback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(getApplicationContext(), ShowContact.class);
+                intent.putExtra("unom", unom);
+                intent.putExtra("unum", unum);
+                startActivity(intent);
+            }
+        });
         a = findViewById(R.id.addcontact);
         a.setOnClickListener(new View.OnClickListener() {
             @Override
