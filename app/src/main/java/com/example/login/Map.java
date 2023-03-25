@@ -21,12 +21,14 @@ import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.MapPoi;
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
@@ -36,6 +38,7 @@ public class Map extends AppCompatActivity {
     private MapView mMapView = null;
     private BaiduMap mBaiduMap = null;
     private LocationClient mLocationClient = null;
+    private GetCustomerPosition getCustomerPosition;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,9 +128,13 @@ public class Map extends AppCompatActivity {
         mBaiduMap = mMapView.getMap();
 
         LatLng cenpt = new LatLng(48.865545884093244, 2.34702785023729);  //设定中心点坐标
+
+        this.getCustomerPosition = new GetCustomerPosition(this.mBaiduMap);
+        this.getCustomerPosition.start();
+
         MapStatus mMapStatus = new MapStatus.Builder()//定义地图状态
                 .target(cenpt)
-                .zoom(10)
+                .zoom(13.5f)
                 .build();  //定义MapStatusUpdate对象，以便描述地图状态将要发生的变化
         MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
         mBaiduMap.setMapStatus(mMapStatusUpdate);//改变地图状态
@@ -179,6 +186,7 @@ public class Map extends AppCompatActivity {
         super.onDestroy();
         mLocationClient.stop();
         mMapView.onDestroy();
+        this.getCustomerPosition.stop();
 //        mLocationClient.stop();
 //        mBaiduMap.setMyLocationEnabled(false);
 //        mMapView = null;
