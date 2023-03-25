@@ -17,14 +17,14 @@ import java.util.HashMap;
 
 public class JSONParser {
 
-    String charset = "UTF-8";
-    HttpURLConnection conn;
-    DataOutputStream wr;
-    StringBuilder result;
-    URL urlObj;
-    JSONObject jObj = null;
-    StringBuilder sbParams;
-    String paramsString;
+    private String charset = "UTF-8";
+    private HttpURLConnection conn;
+    private DataOutputStream wr;
+    private StringBuilder result;
+    private URL urlObj;
+    private JSONObject jObj = null;
+    private StringBuilder sbParams;
+    private String paramsString;
 
     public JSONObject makeHttpRequest(String url, String method,
                                       HashMap<String,String> params) {

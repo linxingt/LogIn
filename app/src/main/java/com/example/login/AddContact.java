@@ -16,34 +16,35 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class AddContact extends AppCompatActivity {
-    EditText cnom, cprenom, cemail;
-    Button addback, a;
+    private EditText cnom, cprenom, cemail;
+    private Button addback, a;
 
-    ProgressDialog dialog;
-    JSONParser parser = new JSONParser();
+    private ProgressDialog dialog;
+    private JSONParser parser = new JSONParser();
 
-    int succes;
+    private int succes;
 
-    String unom, unum;
+    private String unom, unum;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
-        getSupportActionBar().hide();// title bar
+        Objects.requireNonNull(getSupportActionBar()).hide();// title bar
         getWindow().setStatusBarColor(getResources().getColor(R.color.black));//color status bar
 
-        cnom = findViewById(R.id.cnom);
-        cprenom = findViewById(R.id.cprenom);
-        cemail = findViewById(R.id.cemail);
+        this.cnom = findViewById(R.id.cnom);
+        this.cprenom = findViewById(R.id.cprenom);
+        this.cemail = findViewById(R.id.cemail);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            unom = extras.getString("unom");
-            unum = extras.getString("unum");
+            this.unom = extras.getString("unom");
+            this.unum = extras.getString("unum");
         } else {
             AlertDialog.Builder alert = new AlertDialog.Builder(AddContact.this);
             alert.setMessage("required data missing");
@@ -51,8 +52,8 @@ public class AddContact extends AppCompatActivity {
             alert.show();
         }
 
-        addback = findViewById(R.id.addback);
-        addback.setOnClickListener(new View.OnClickListener() {
+        this.addback = findViewById(R.id.addback);
+        this.addback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
@@ -62,16 +63,15 @@ public class AddContact extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        a = findViewById(R.id.addcontact);
-        a.setOnClickListener(new View.OnClickListener() {
+        this.a = findViewById(R.id.addcontact);
+        this.a.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (cnom.getText().length() == 0 || cprenom.getText().length() == 0 ||
                         cemail.getText().length() == 0) {
                     Toast.makeText(getApplicationContext(),
-                            "tous les champs sont obligatoire", Toast.LENGTH_LONG).show();
+                            "Tous les champs sont requient", Toast.LENGTH_LONG).show();
                 } else {
-
                         new Add().execute();
                 }
             }
@@ -79,7 +79,7 @@ public class AddContact extends AppCompatActivity {
 
     }
 
-    class Add extends AsyncTask<String, String, String> {
+    private class Add extends AsyncTask<String, String, String> {
 
         @Override
         protected void onPreExecute() {
@@ -115,16 +115,19 @@ public class AddContact extends AppCompatActivity {
             dialog.cancel();
 
             if (succes == 1) {
-                Toast.makeText(AddContact.this, "c fait, allez voir", Toast.LENGTH_LONG).show();
+                Toast.makeText(AddContact.this, "Contact added successfully", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent();
                 intent.setClass(getApplicationContext(), ShowContact.class);
                 intent.putExtra("unom",unom);
                 intent.putExtra("unum",unum);
                 startActivity(intent);
             }else if (succes == 2) {
-                Toast.makeText(AddContact.this, "contact already existe", Toast.LENGTH_LONG).show();
-            }else {
-                Toast.makeText(AddContact.this, "echec!!!!", Toast.LENGTH_LONG).show();
+                Toast.makeText(AddContact.this, "Contact already existing", Toast.LENGTH_LONG).show();
+            }else if (succes == 3){
+                Toast.makeText(AddContact.this, "This person doesn't exist", Toast.LENGTH_LONG).show();
+            }
+            else {
+                Toast.makeText(AddContact.this, "FAIL !!!!", Toast.LENGTH_LONG).show();
             }
         }
     }
