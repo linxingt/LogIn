@@ -22,10 +22,8 @@
 
     <Button
         android:id="@+id/validate"
-        android:layout_width="0dp"
+        android:layout_width="94dp"
         android:layout_height="48dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginEnd="22dp"
         android:background="@drawable/radius_shape"
         android:elevation="30dp"
         android:padding="10dp"
@@ -35,15 +33,12 @@
         android:textSize="15sp"
         android:textStyle="bold|italic"
         app:layout_constraintBaseline_toBaselineOf="@+id/back"
-        app:layout_constraintEnd_toStartOf="@+id/back"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/ins_numc" />
 
     <EditText
         android:id="@+id/ins_nom"
-        android:layout_width="0dp"
+        android:layout_width="80dp"
         android:layout_height="48dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginEnd="50dp"
         android:autofillHints="@string/nom"
         android:background="@drawable/radius_shape"
         android:elevation="30dp"
@@ -57,15 +52,16 @@
         android:textIsSelectable="false"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/ins_prenom"
-        app:layout_constraintEnd_toStartOf="@+id/ins_prenom"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageView2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/ins_email"
         app:layout_constraintTop_toTopOf="@+id/ins_prenom" />
 
     <EditText
         android:id="@+id/ins_num"
         android:layout_width="210dp"
         android:layout_height="48dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginTop="32dp"
         android:autofillHints="@string/num"
         android:background="@drawable/radius_shape"
         android:elevation="30dp"
@@ -78,7 +74,6 @@
         android:textColorHint="@color/gray"
         android:textIsSelectable="false"
         android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/ins_numc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ins_email" />
@@ -87,7 +82,7 @@
         android:id="@+id/ins_numc"
         android:layout_width="210dp"
         android:layout_height="48dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginTop="32dp"
         android:autofillHints="@string/cmdp"
         android:background="@drawable/radius_shape"
         android:elevation="30dp"
@@ -100,7 +95,6 @@
         android:textColorHint="@color/gray"
         android:textIsSelectable="false"
         android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/back"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ins_num" />
@@ -109,7 +103,7 @@
         android:id="@+id/ins_email"
         android:layout_width="210dp"
         android:layout_height="48dp"
-        android:layout_marginBottom="33dp"
+        android:layout_marginBottom="187dp"
         android:autofillHints="@string/email"
         android:background="@drawable/radius_shape"
         android:elevation="30dp"
@@ -122,17 +116,16 @@
         android:textColorHint="@color/gray"
         android:textIsSelectable="false"
         android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/ins_num"
+        app:layout_constraintBottom_toTopOf="@+id/back"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ins_prenom" />
 
     <EditText
         android:id="@+id/ins_prenom"
-        android:layout_width="0dp"
+        android:layout_width="80dp"
         android:layout_height="48dp"
-        android:layout_marginEnd="101dp"
-        android:layout_marginBottom="33dp"
+        android:layout_marginBottom="24dp"
         android:autofillHints="@string/prenom"
         android:background="@drawable/radius_shape"
         android:elevation="30dp"
@@ -146,16 +139,16 @@
         android:textIsSelectable="false"
         android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/ins_email"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ins_nom"
+        app:layout_constraintEnd_toEndOf="@+id/ins_email"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <Button
         android:id="@+id/back"
-        android:layout_width="0dp"
+        android:layout_width="94dp"
         android:layout_height="48dp"
-        android:layout_marginEnd="101dp"
-        android:layout_marginBottom="203dp"
+        android:layout_marginBottom="214dp"
         android:background="@drawable/radius_shape"
         android:elevation="30dp"
         android:padding="10dp"
@@ -165,8 +158,7 @@
         android:textSize="15sp"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/validate"
-        app:layout_constraintTop_toBottomOf="@+id/ins_numc" />
+        app:layout_constraintEnd_toEndOf="@+id/ins_numc"
+        app:layout_constraintTop_toBottomOf="@+id/ins_email" />
 
 </android.support.constraint.ConstraintLayout>

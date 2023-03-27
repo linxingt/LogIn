@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 
-public class GetCustomerPosition implements Runnable{
+public class GetCustomerPosition implements Runnable {
     ArrayList<LatLng> allPosition;
     private JSONParser parser;
     private Handler myHandler;
@@ -25,13 +25,13 @@ public class GetCustomerPosition implements Runnable{
     private int numPosition;
     private Marker previousMaker;
 
-    public GetCustomerPosition (BaiduMap m){
+    public GetCustomerPosition(BaiduMap m) {
         this.map = m;
         this.myHandler = new Handler();
 
         this.allPosition = new ArrayList<>(Arrays.asList(
-           new LatLng(48.865285969008525, 2.3350311397520684),
-           new LatLng(48.86619697265034, 2.3354606250061862),
+                new LatLng(48.865285969008525, 2.3350311397520684),
+                new LatLng(48.86619697265034, 2.3354606250061862),
                 new LatLng(48.866491027247335, 2.3356183950995355),
                 new LatLng(48.86703965200232, 2.3358749278058983),
                 new LatLng(48.86771423391688, 2.3361904680011953),
@@ -45,20 +45,20 @@ public class GetCustomerPosition implements Runnable{
         this.numPosition = 0;
     }
 
-    public void start(){
+    public void start() {
         this.myHandler.post(this);
     }
 
-    public void stop(){
+    public void stop() {
         this.myHandler.removeCallbacks(this);
     }
 
     @Override
-    public void run(){
-        if (this.previousMaker != null){
+    public void run() {
+        if (this.previousMaker != null) {
             this.previousMaker.remove();
         }
-        if (this.numPosition == this.allPosition.size()){
+        if (this.numPosition == this.allPosition.size()) {
             this.numPosition = 0;
         }
         MarkerOptions markerOptions = new MarkerOptions()

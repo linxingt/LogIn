@@ -27,13 +27,13 @@ public class JSONParser {
     private String paramsString;
 
     public JSONObject makeHttpRequest(String url, String method,
-                                      HashMap<String,String> params) {
+                                      HashMap<String, String> params) {
 
         sbParams = new StringBuilder();
         int i = 0;
         for (String key : params.keySet()) {
             try {
-                if (i != 0){
+                if (i != 0) {
                     sbParams.append("&");
                 }
                 sbParams.append(key).append("=")
@@ -73,8 +73,7 @@ public class JSONParser {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-        else if(method.equals("GET")){
+        } else if (method.equals("GET")) {
             // request method is GET
 
             if (sbParams.length() != 0) {

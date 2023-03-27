@@ -72,7 +72,7 @@ public class AddContact extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),
                             "Tous les champs sont requient", Toast.LENGTH_LONG).show();
                 } else {
-                        new Add().execute();
+                    new Add().execute();
                 }
             }
         });
@@ -118,15 +118,14 @@ public class AddContact extends AppCompatActivity {
                 Toast.makeText(AddContact.this, "Contact added successfully", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent();
                 intent.setClass(getApplicationContext(), ShowContact.class);
-                intent.putExtra("unom",unom);
-                intent.putExtra("unum",unum);
+                intent.putExtra("unom", unom);
+                intent.putExtra("unum", unum);
                 startActivity(intent);
-            }else if (succes == 2) {
+            } else if (succes == 2) {
                 Toast.makeText(AddContact.this, "Contact already existing", Toast.LENGTH_LONG).show();
-            }else if (succes == 3){
+            } else if (succes == 3) {
                 Toast.makeText(AddContact.this, "This person doesn't exist", Toast.LENGTH_LONG).show();
-            }
-            else {
+            } else {
                 Toast.makeText(AddContact.this, "FAIL !!!!", Toast.LENGTH_LONG).show();
             }
         }

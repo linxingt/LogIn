@@ -1,6 +1,7 @@
 package com.example.login;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -34,27 +35,25 @@ import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
 
 public class Map extends AppCompatActivity {
-    Button but_Loc;
+    private Button but_Loc, mapback;
     private MapView mMapView = null;
     private BaiduMap mBaiduMap = null;
     private LocationClient mLocationClient = null;
     private GetCustomerPosition getCustomerPosition;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //检查权限
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-        {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-        }else if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-        {
+        } else if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2);
-        }else if(ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-        {
+        } else if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE}, 3);
@@ -72,6 +71,7 @@ public class Map extends AppCompatActivity {
             }
         }
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
@@ -106,6 +106,7 @@ public class Map extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
     private void initSDK(boolean status) {
         LocationClient.setAgreePrivacy(status);
         SDKInitializer.setAgreePrivacy(getApplicationContext(), status);
@@ -119,12 +120,13 @@ public class Map extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
     private void initmap() throws Exception {
         //定位初始化
         mLocationClient = new LocationClient(getApplicationContext());
         mLocationClient.registerLocationListener(new MyLocationListener());
         //获取地图控件引用
-        mMapView = (MapView)findViewById(R.id.bmapView);
+        mMapView = (MapView) findViewById(R.id.bmapView);
         mBaiduMap = mMapView.getMap();
 
         LatLng cenpt = new LatLng(48.865545884093244, 2.34702785023729);  //设定中心点坐标
@@ -148,7 +150,7 @@ public class Map extends AppCompatActivity {
         mMapView.showScaleControl(false);
 // 隐藏logo
         View child = mMapView.getChildAt(1);
-        if (child != null && (child instanceof ImageView || child instanceof ZoomControls)){
+        if (child != null && (child instanceof ImageView || child instanceof ZoomControls)) {
             child.setVisibility(View.INVISIBLE);
         }
 
@@ -166,21 +168,35 @@ public class Map extends AppCompatActivity {
         //开启地图定位图层
         mLocationClient.start();
         //myOrientationListener.onStart();
+        this.mapback = findViewById(R.id.mapback);
+        this.mapback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(getApplicationContext(), ShowContact.class);
+                intent.putExtra("unom", getIntent().getExtras().getString("unom"));
+                intent.putExtra("unum", getIntent().getExtras().getString("unum"));
+                startActivity(intent);
+            }
+        });
     }
+
     @Override
     protected void onResume() {
-            super.onResume();
-            //在activity执行onResume时执行mMapView. onResume ()，实现地图生命周期管理
-            mMapView = (MapView)findViewById(R.id.bmapView);
-            mMapView.onResume();
+        super.onResume();
+        //在activity执行onResume时执行mMapView. onResume ()，实现地图生命周期管理
+        mMapView = (MapView) findViewById(R.id.bmapView);
+        mMapView.onResume();
     }
+
     @Override
     protected void onPause() {
         super.onPause();
         //在activity执行onPause时执行mMapView. onPause ()，实现地图生命周期管理
-        mMapView = (MapView)findViewById(R.id.bmapView);
+        mMapView = (MapView) findViewById(R.id.bmapView);
         mMapView.onPause();
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -194,12 +210,13 @@ public class Map extends AppCompatActivity {
 //        //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
 //        mMapView.onDestroy();
     }
+
     //构造地图数据
     public class MyLocationListener extends BDAbstractLocationListener {
-         @Override
+        @Override
         public void onReceiveLocation(BDLocation location) {
             //mapView 销毁后不在处理新接收的位置
-            if (location == null || mMapView == null){
+            if (location == null || mMapView == null) {
                 return;
             }
             LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
@@ -210,27 +227,28 @@ public class Map extends AppCompatActivity {
                     .direction(location.getDirection()).latitude(location.getLatitude())
                     .longitude(location.getLongitude()).build();
             MyLocationConfiguration configuration = new MyLocationConfiguration(MyLocationConfiguration.LocationMode.NORMAL,
-                    true, BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.bleutotoro), 150, 160, true)) );
+                    true, BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.bleutotoro), 150, 160, true)));
             mBaiduMap.setMyLocationConfiguration(configuration);
 //            mBaiduMap.animateMapStatus(update);
             mBaiduMap.setMyLocationData(locData);
 
-             but_Loc = findViewById(R.id.but_Loc);
-             but_Loc.setOnClickListener(new View.OnClickListener() {
-                 @Override
-                 public void onClick(View v) {
-                     MapStatusUpdate update = MapStatusUpdateFactory.newLatLng(latLng);
-                     mBaiduMap.animateMapStatus(update);
-                 }
-             });
+            but_Loc = findViewById(R.id.but_Loc);
+            but_Loc.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    MapStatusUpdate update = MapStatusUpdateFactory.newLatLng(latLng);
+                    mBaiduMap.animateMapStatus(update);
+                }
+            });
             BaiduMap.OnMapClickListener listener = new BaiduMap.OnMapClickListener() {
                 @Override
                 public void onMapClick(LatLng point) {
                     LatLng start = new LatLng(location.getLatitude(), location.getLongitude());
-                    LatLng end = new LatLng(point.latitude,point.longitude);
+                    LatLng end = new LatLng(point.latitude, point.longitude);
                     double double_distance = getDistance(start, end);
-                    Toast.makeText(getApplicationContext(), "The distance between you and where you clicked is : " + Math.round(double_distance)+ "km", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "The distance between you and where you clicked is : " + Math.round(double_distance) + "km", Toast.LENGTH_SHORT).show();
                 }
+
                 @Override
                 public void onMapPoiClick(MapPoi mapPoi) {
 

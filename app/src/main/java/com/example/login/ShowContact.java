@@ -86,6 +86,8 @@ public class ShowContact extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setClass(getApplicationContext(), Map.class);
+                intent.putExtra("unom", unom);
+                intent.putExtra("unum", unum);
                 startActivity(intent);
             }
         });
@@ -95,7 +97,7 @@ public class ShowContact extends AppCompatActivity {
         AdapterView<?> parent;
         int position;
 
-        Delete(AdapterView<?> parent,int position) {
+        Delete(AdapterView<?> parent, int position) {
             this.parent = parent;
             this.position = position;
         }
@@ -137,8 +139,8 @@ public class ShowContact extends AppCompatActivity {
                 Toast.makeText(ShowContact.this, "c fait", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent();
                 intent.setClass(getApplicationContext(), ShowContact.class);
-                intent.putExtra("unom",unom);
-                intent.putExtra("unum",unum);
+                intent.putExtra("unom", unom);
+                intent.putExtra("unum", unum);
                 startActivity(intent);
             } else {
                 Toast.makeText(ShowContact.this, "echec!!!!", Toast.LENGTH_LONG).show();
@@ -212,7 +214,7 @@ public class ShowContact extends AppCompatActivity {
                             .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    new Delete(parent,position).execute();
+                                    new Delete(parent, position).execute();
                                 }
                             })
                             .setNeutralButton("NO", null).show();

@@ -106,8 +106,8 @@ public class MainActivity extends AppCompatActivity {
             if (succes == 1) {
                 Intent intent = new Intent();
                 intent.setClass(MainActivity.this, ShowContact.class);
-                intent.putExtra("unom",nom.getText().toString());
-                intent.putExtra("unum",num.getText().toString());
+                intent.putExtra("unom", nom.getText().toString());
+                intent.putExtra("unum", num.getText().toString());
                 startActivity(intent);
 
             } else {
