@@ -20,11 +20,10 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText nom, num;
-    Button l, s, m;
-    ProgressDialog dialog;
-    JSONParser parser = new JSONParser();
-    int succes;
+    private EditText nom, num;
+    private Button l, s;
+    private JSONParser parser = new JSONParser();
+    private int succes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,24 +33,25 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();// title bar
         getWindow().setStatusBarColor(getResources().getColor(R.color.black));//color status bar
 
-        nom = findViewById(R.id.nom);
-        num = findViewById(R.id.num);
+        this.nom = findViewById(R.id.nom);
+        this.num = findViewById(R.id.num);
 
+        this.l = findViewById(R.id.login);
+        this.s = findViewById(R.id.signup);
 
-        l = findViewById(R.id.login);
-        l.setOnClickListener(new View.OnClickListener() {
+        this.l.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (nom.getText().length() == 0 || num.getText().length() == 0) {
                     Toast.makeText(getApplicationContext(),
                             "tous les champs sont obligatoire", Toast.LENGTH_LONG).show();
                 } else {
-                    new Log().execute();
+                    new Log(new ProgressDialog(MainActivity.this)).execute();
                 }
             }
         });
-        s = findViewById(R.id.signup);
-        s.setOnClickListener(new View.OnClickListener() {
+
+        this.s.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
@@ -59,25 +59,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        m = findViewById(R.id.button_map);
-        m.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(getApplicationContext(), Map.class);
-                startActivity(intent);
-            }
-        });
+
+
     }
 
-    class Log extends AsyncTask<String, String, String> {
+    private class Log extends Task {
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            dialog = new ProgressDialog(MainActivity.this);
-            dialog.setMessage("Patientez svp");
-            dialog.show();
+        public Log(ProgressDialog p) {
+            super(p);
         }
 
         @Override
@@ -101,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            dialog.cancel();
+            super.getDialogue().cancel();
 
             if (succes == 1) {
                 Intent intent = new Intent();

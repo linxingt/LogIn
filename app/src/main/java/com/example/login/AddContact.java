@@ -22,8 +22,7 @@ public class AddContact extends AppCompatActivity {
     private EditText cnom, cprenom, cemail;
     private Button addback, a;
 
-    private ProgressDialog dialog;
-    private JSONParser parser = new JSONParser();
+    private JSONParser parser;
 
     private int succes;
 
@@ -40,19 +39,12 @@ public class AddContact extends AppCompatActivity {
         this.cnom = findViewById(R.id.cnom);
         this.cprenom = findViewById(R.id.cprenom);
         this.cemail = findViewById(R.id.cemail);
-
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            this.unom = extras.getString("unom");
-            this.unum = extras.getString("unum");
-        } else {
-            AlertDialog.Builder alert = new AlertDialog.Builder(AddContact.this);
-            alert.setMessage("required data missing");
-            alert.setNeutralButton("ok", null);
-            alert.show();
-        }
-
         this.addback = findViewById(R.id.addback);
+        this.parser = new JSONParser();
+        this.a = findViewById(R.id.addcontact);
+
+        putIntExtras();
+
         this.addback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,7 +55,6 @@ public class AddContact extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        this.a = findViewById(R.id.addcontact);
         this.a.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,21 +63,30 @@ public class AddContact extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),
                             "Tous les champs sont requient", Toast.LENGTH_LONG).show();
                 } else {
-                    new Add().execute();
+                    new Add(new ProgressDialog(AddContact.this)).execute();
                 }
             }
         });
 
     }
 
-    private class Add extends AsyncTask<String, String, String> {
+    private void putIntExtras(){
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            this.unom = extras.getString("unom");
+            this.unum = extras.getString("unum");
+        } else {
+            AlertDialog.Builder alert = new AlertDialog.Builder(AddContact.this);
+            alert.setMessage("required data missing");
+            alert.setNeutralButton("ok", null);
+            alert.show();
+        }
+    }
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            dialog = new ProgressDialog(AddContact.this);
-            dialog.setMessage("Patientez svp");
-            dialog.show();
+    private class Add extends Task{
+
+        public Add(ProgressDialog p) {
+            super(p);
         }
 
         @Override
@@ -112,7 +112,7 @@ public class AddContact extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            dialog.cancel();
+            super.getDialogue().cancel();
 
             if (succes == 1) {
                 Toast.makeText(AddContact.this, "Contact added successfully", Toast.LENGTH_LONG).show();

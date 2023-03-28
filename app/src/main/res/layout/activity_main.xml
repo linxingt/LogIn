@@ -46,8 +46,6 @@
         android:id="@+id/num"
         android:layout_width="210dp"
         android:layout_height="48dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginEnd="14dp"
         android:layout_marginBottom="33dp"
         android:autofillHints="@string/num"
         android:background="@drawable/radius_shape"
@@ -61,7 +59,8 @@
         android:textColorHint="@color/gray"
         android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/signup"
-        app:layout_constraintEnd_toStartOf="@+id/button_map"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nom" />
 
@@ -111,18 +110,5 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="20dp" />
-
-    <Button
-        android:id="@+id/button_map"
-        android:layout_width="50dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="14dp"
-        android:layout_marginEnd="37dp"
-        android:layout_marginBottom="15dp"
-        android:background="@drawable/maplogo"
-        app:layout_constraintBottom_toBottomOf="@+id/num"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/num"
-        app:layout_constraintTop_toBottomOf="@+id/nom" />
 
 </android.support.constraint.ConstraintLayout>

@@ -122,52 +122,40 @@ public class Map extends AppCompatActivity {
     }
 
     private void initmap() throws Exception {
-        //定位初始化
         mLocationClient = new LocationClient(getApplicationContext());
         mLocationClient.registerLocationListener(new MyLocationListener());
-        //获取地图控件引用
         mMapView = (MapView) findViewById(R.id.bmapView);
         mBaiduMap = mMapView.getMap();
 
-        LatLng cenpt = new LatLng(48.865545884093244, 2.34702785023729);  //设定中心点坐标
+        LatLng cenpt = new LatLng(48.865545884093244, 2.34702785023729);
 
         this.getCustomerPosition = new GetCustomerPosition(this.mBaiduMap);
         this.getCustomerPosition.start();
 
-        MapStatus mMapStatus = new MapStatus.Builder()//定义地图状态
+        MapStatus mMapStatus = new MapStatus.Builder()
                 .target(cenpt)
                 .zoom(13.5f)
-                .build();  //定义MapStatusUpdate对象，以便描述地图状态将要发生的变化
+                .build();
         MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
-        mBaiduMap.setMapStatus(mMapStatusUpdate);//改变地图状态
+        mBaiduMap.setMapStatus(mMapStatusUpdate);
 
-//开启地图的定位图层
         mBaiduMap.setMyLocationEnabled(true);
 
-//取消所有文字注释
-//        mBaiduMap.showMapPoi(false);
-//地图上比例尺
         mMapView.showScaleControl(false);
-// 隐藏logo
         View child = mMapView.getChildAt(1);
         if (child != null && (child instanceof ImageView || child instanceof ZoomControls)) {
             child.setVisibility(View.INVISIBLE);
         }
 
-        //通过LocationClientOption设置LocationClient相关参数
         LocationClientOption option = new LocationClientOption();
-        option.setOpenGps(true); // 打开gps
-        option.setCoorType("bd09ll"); // 设置坐标类型
+        option.setOpenGps(true);
+        option.setCoorType("bd09ll");
         option.setScanSpan(1000);
-        //设置locationClientOption
         mLocationClient.setLocOption(option);
-        //注册LocationListener监听器
+
         MyLocationListener myLocationListener = new MyLocationListener();
         mLocationClient.registerLocationListener(myLocationListener);
-        //initOrientationListener();
-        //开启地图定位图层
         mLocationClient.start();
-        //myOrientationListener.onStart();
         this.mapback = findViewById(R.id.mapback);
         this.mapback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,7 +172,6 @@ public class Map extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        //在activity执行onResume时执行mMapView. onResume ()，实现地图生命周期管理
         mMapView = (MapView) findViewById(R.id.bmapView);
         mMapView.onResume();
     }
@@ -192,7 +179,6 @@ public class Map extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        //在activity执行onPause时执行mMapView. onPause ()，实现地图生命周期管理
         mMapView = (MapView) findViewById(R.id.bmapView);
         mMapView.onPause();
     }
@@ -203,33 +189,22 @@ public class Map extends AppCompatActivity {
         mLocationClient.stop();
         mMapView.onDestroy();
         this.getCustomerPosition.stop();
-//        mLocationClient.stop();
-//        mBaiduMap.setMyLocationEnabled(false);
-//        mMapView = null;
-//        super.onDestroy();
-//        //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
-//        mMapView.onDestroy();
     }
 
-    //构造地图数据
     public class MyLocationListener extends BDAbstractLocationListener {
         @Override
         public void onReceiveLocation(BDLocation location) {
-            //mapView 销毁后不在处理新接收的位置
             if (location == null || mMapView == null) {
                 return;
             }
             LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-//            MapStatusUpdate update = MapStatusUpdateFactory.newLatLng(latLng);
             MyLocationData locData = new MyLocationData.Builder()
                     .accuracy(location.getRadius())
-                    // 此处设置开发者获取到的方向信息，顺时针0-360
                     .direction(location.getDirection()).latitude(location.getLatitude())
                     .longitude(location.getLongitude()).build();
             MyLocationConfiguration configuration = new MyLocationConfiguration(MyLocationConfiguration.LocationMode.NORMAL,
                     true, BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.bleutotoro), 150, 160, true)));
             mBaiduMap.setMyLocationConfiguration(configuration);
-//            mBaiduMap.animateMapStatus(update);
             mBaiduMap.setMyLocationData(locData);
 
             but_Loc = findViewById(R.id.but_Loc);

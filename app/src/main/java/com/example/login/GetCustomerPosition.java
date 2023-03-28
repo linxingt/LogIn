@@ -18,10 +18,10 @@ import java.util.Arrays;
 public class GetCustomerPosition implements Runnable {
     ArrayList<LatLng> allPosition;
     private JSONParser parser;
-    private Handler myHandler;
-    private BaiduMap map;
+    private final Handler myHandler;
+    private final BaiduMap map;
     private BitmapDescriptor icon;
-    private BitmapDescriptor resizedIcon;
+    private final BitmapDescriptor resizedIcon;
     private int numPosition;
     private Marker previousMaker;
 

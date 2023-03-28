@@ -17,13 +17,11 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 public class Inscription extends AppCompatActivity {
-    EditText ins_nom, ins_prenom, ins_email, ins_num, ins_numc;
-    Button v, b;
+    private EditText ins_nom, ins_prenom, ins_email, ins_num, ins_numc;
+    private Button v, b;
+    private JSONParser parser;
 
-    ProgressDialog dialog;
-    JSONParser parser = new JSONParser();
-
-    int succes;
+    private int succes;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,33 +31,36 @@ public class Inscription extends AppCompatActivity {
         getSupportActionBar().hide();// title bar
         getWindow().setStatusBarColor(getResources().getColor(R.color.black));//color status bar
 
-        ins_nom = findViewById(R.id.ins_nom);
-        ins_prenom = findViewById(R.id.ins_prenom);
-        ins_email = findViewById(R.id.ins_email);
-        ins_num = findViewById(R.id.ins_num);
-        ins_numc = findViewById(R.id.ins_numc);
+        this.ins_nom = findViewById(R.id.ins_nom);
+        this.ins_prenom = findViewById(R.id.ins_prenom);
+        this.ins_email = findViewById(R.id.ins_email);
+        this.ins_num = findViewById(R.id.ins_num);
+        this.ins_numc = findViewById(R.id.ins_numc);
+        this.parser = new JSONParser();
 
-        v = findViewById(R.id.validate);
-        v.setOnClickListener(new View.OnClickListener() {
+        this.v = findViewById(R.id.validate);
+        this.b = findViewById(R.id.back);
+
+        this.v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ins_nom.getText().length() == 0 || ins_prenom.getText().length() == 0 ||
-                        ins_email.getText().length() == 0 || ins_num.getText().length() == 0 ||
-                        ins_numc.getText().length() == 0) {
-                    Toast.makeText(getApplicationContext(),
-                            "tous les champs sont obligatoire", Toast.LENGTH_LONG).show();
+                if (isOneFiledEmpty()) {
+                    Toast.makeText(
+                            getApplicationContext(),
+                            "tous les champs sont obligatoire",
+                            Toast.LENGTH_LONG).show();
                 } else {
 
                     if (ins_num.getText().toString().equals(ins_numc.getText().toString()))
-                        new Add().execute();
+                        new Add(new ProgressDialog(Inscription.this)).execute();
                     else
                         Toast.makeText(getApplicationContext(),
                                 "verifiez votre mdp", Toast.LENGTH_LONG).show();
                 }
             }
         });
-        b = findViewById(R.id.back);
-        b.setOnClickListener(new View.OnClickListener() {
+
+        this.b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
@@ -70,14 +71,16 @@ public class Inscription extends AppCompatActivity {
 
     }
 
-    class Add extends AsyncTask<String, String, String> {
+    private boolean isOneFiledEmpty(){
+        return this.ins_nom.getText().length() == 0 || this.ins_prenom.getText().length() == 0 ||
+                this.ins_email.getText().length() == 0 || this.ins_num.getText().length() == 0 ||
+                this.ins_numc.getText().length() == 0;
+    }
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            dialog = new ProgressDialog(Inscription.this);
-            dialog.setMessage("Patientez svp");
-            dialog.show();
+    private class Add extends Task{
+
+        public Add(ProgressDialog p) {
+            super(p);
         }
 
         @Override
@@ -102,7 +105,7 @@ public class Inscription extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            dialog.cancel();
+            super.getDialogue().cancel();
 
             if (succes == 1) {
                 Toast.makeText(Inscription.this, "c fait, allez login", Toast.LENGTH_LONG).show();

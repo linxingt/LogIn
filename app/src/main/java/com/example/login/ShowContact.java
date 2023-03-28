@@ -24,17 +24,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ShowContact extends AppCompatActivity {
-    TextView usernom;
-    ListView contacts_show;
-    Button add, showback, locamap;
+    private TextView usernom;
+    private ListView contacts_show;
+    private Button add, showback, locamap;
 
-    ProgressDialog dialog;
-    JSONParser parser = new JSONParser();
-    JSONParser parserd = new JSONParser();
-    ArrayList<HashMap<String, String>> values = new ArrayList<HashMap<String, String>>();
-    int succes;
+    private JSONParser parser = new JSONParser();
+    private JSONParser parserd = new JSONParser();
+    private ArrayList<HashMap<String, String>> values = new ArrayList<HashMap<String, String>>();
+    private int succes;
 
-    String unom, unum;
+    private String unom, unum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,24 +43,16 @@ public class ShowContact extends AppCompatActivity {
         getSupportActionBar().hide();// title bar
         getWindow().setStatusBarColor(getResources().getColor(R.color.black));//color status bar
 
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            unom = extras.getString("unom");
-            unum = extras.getString("unum");
 
-            new Select().execute();
-        } else {
-            AlertDialog.Builder alert = new AlertDialog.Builder(ShowContact.this);
-            alert.setMessage("required data missing");
-            alert.setNeutralButton("ok", null);
-            alert.show();
-        }
+        this.usernom = findViewById(R.id.usernom);
+        this.contacts_show = findViewById(R.id.contacts_show);
+        this.showback = findViewById(R.id.showback);
+        this.add = findViewById(R.id.add);
+        this.locamap = findViewById(R.id.locamap);
 
-        usernom = findViewById(R.id.usernom);
-        contacts_show = findViewById(R.id.contacts_show);
+        putInExtras();
 
-        add = findViewById(R.id.add);
-        add.setOnClickListener(new View.OnClickListener() {
+        this.add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
@@ -71,8 +62,8 @@ public class ShowContact extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        showback = findViewById(R.id.showback);
-        showback.setOnClickListener(new View.OnClickListener() {
+
+        this.showback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
@@ -80,8 +71,8 @@ public class ShowContact extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        locamap = findViewById(R.id.locamap);
-        locamap.setOnClickListener(new View.OnClickListener() {
+
+        this.locamap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
@@ -93,21 +84,29 @@ public class ShowContact extends AppCompatActivity {
         });
     }
 
-    class Delete extends AsyncTask<String, String, String> {
+    public void putInExtras(){
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            this.unom = extras.getString("unom");
+            this.unum = extras.getString("unum");
+
+            new Select(new ProgressDialog(ShowContact.this)).execute();
+        } else {
+            AlertDialog.Builder alert = new AlertDialog.Builder(ShowContact.this);
+            alert.setMessage("required data missing");
+            alert.setNeutralButton("ok", null);
+            alert.show();
+        }
+    }
+
+    private class Delete extends Task{
         AdapterView<?> parent;
         int position;
 
-        Delete(AdapterView<?> parent, int position) {
+        Delete(AdapterView<?> parent, int position, ProgressDialog p) {
+            super(p);
             this.parent = parent;
             this.position = position;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            dialog = new ProgressDialog(ShowContact.this);
-            dialog.setMessage("Patientez svp");
-            dialog.show();
         }
 
         @Override
@@ -133,7 +132,7 @@ public class ShowContact extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            dialog.cancel();
+            super.getDialogue().cancel();
 
             if (succes == 1) {
                 Toast.makeText(ShowContact.this, "c fait", Toast.LENGTH_LONG).show();
@@ -148,14 +147,10 @@ public class ShowContact extends AppCompatActivity {
         }
     }
 
-    class Select extends AsyncTask<String, String, String> {
+    private class Select extends Task{
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            dialog = new ProgressDialog(ShowContact.this);
-            dialog.setMessage("Patientez svp");
-            dialog.show();
+        public Select(ProgressDialog p) {
+            super(p);
         }
 
         @Override
@@ -201,7 +196,7 @@ public class ShowContact extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            dialog.cancel();
+            super.getDialogue().cancel();
             usernom.setText(unom);
             SimpleAdapter adapter = new SimpleAdapter(ShowContact.this, values, R.layout.showlist_item,
                     new String[]{"nom", "prenom", "email"}, new int[]{R.id.itnom, R.id.itprenom, R.id.itemail});
@@ -214,7 +209,7 @@ public class ShowContact extends AppCompatActivity {
                             .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    new Delete(parent, position).execute();
+                                    new Delete(parent, position, new ProgressDialog(ShowContact.this)).execute();
                                 }
                             })
                             .setNeutralButton("NO", null).show();
