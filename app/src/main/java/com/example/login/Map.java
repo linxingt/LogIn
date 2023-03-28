@@ -191,7 +191,7 @@ public class Map extends AppCompatActivity {
         this.getCustomerPosition.stop();
     }
 
-    public class MyLocationListener extends BDAbstractLocationListener {
+    private class MyLocationListener extends BDAbstractLocationListener {
         @Override
         public void onReceiveLocation(BDLocation location) {
             if (location == null || mMapView == null) {
