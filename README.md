@@ -5,6 +5,8 @@
 
 Cette application Android permet de gérer des contacts et d’interagir avec une carte fournie par le SDK **Baidu Maps**. L’utilisateur peut ajouter des contacts et calculer la **distance** entre sa position actuelle et une position choisie sur la carte. La communication avec le backend se fait via **XAMPP** (PHP/MySQL).
 
+Vous pouvez consulter **[quelques photos](https://docs.google.com/document/d/1mtSCVTp90lHcjNMrptoBCmE3s-0sa-bQoWcKFXzIKRM/edit?usp=sharing)** de l'application pour mieux visualiser son interface.
+
 ## Technologies Utilisées
 
 * **Android Studio** (Java)
